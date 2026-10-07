@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LandCorp GT - Soluciones Inmobiliarias</title>
+    
+    <!-- Browser Tab Icon (Favicon) -->
+<link rel="icon" href="AI Generated - Fondo transparente Logo Circular.png" type="image/png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0d274c;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --bg-card-hover: rgba(255, 255, 255, 0.08);
+            --border-color: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #a1b5cc;
+            --accent-teal: #64cfca;
+            --accent-teal-hover: #4fb8b3;
+            --card-inner-bg: rgba(100, 207, 202, 0.08);
+            --dropdown-bg: #091c38;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Container - Responsive Padding & Max Width */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        /* Header / Navbar */
+        header {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+        }
+
+        .brand-tagline {
+            font-size: 0.7rem;
+            color: var(--accent-teal);
+            letter-spacing: 0.5px;
+        }
+
+        /* Desktop Nav */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+        }
+
+        .desktop-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .desktop-nav a:hover {
+            color: var(--text-main);
+        }
+
+        /* Dropdown Menu (Login / Portales) */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-btn {
+            background: rgba(100, 207, 202, 0.1);
+            color: var(--accent-teal);
+            border: 1px solid var(--accent-teal);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-btn:hover {
+            background: var(--accent-teal);
+            color: var(--bg-main);
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            background-color: var(--dropdown-bg);
+            min-width: 200px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.5rem;
+            z-index: 1000;
+        }
+        
+        /* INVISIBLE BRIDGE to prevent hover state from breaking */
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: transparent;
+        }
+
+        .dropdown:hover .dropdown-menu,
+        .dropdown-menu:hover {
+            display: block;
+        }
+
+        .dropdown-item {
+            color: var(--text-main) !important;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(100, 207, 202, 0.15);
+            color: var(--accent-teal) !important;
+        }
+
+        .btn-nav-contact {
+            border: 1px solid var(--text-main);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            color: var(--text-main) !important;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-nav-contact:hover {
+            background-color: var(--text-main);
+            color: var(--bg-main) !important;
+        }
+
+        /* Mobile Hamburger Toggle */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 1rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .mobile-app-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--accent-teal);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 4rem;
+            padding-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--accent-teal);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-description {
+            color: var(--text-muted);
+            font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+            margin-bottom: 2rem;
+            max-width: 540px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-teal);
+            color: var(--bg-main);
+            padding: 0.85rem 1.75rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-teal-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.85rem 1.75rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-main);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Hero Visual Card */
+        .hero-visual {
+            background: linear-gradient(135deg, rgba(100, 207, 202, 0.15) 0%, rgba(13, 39, 76, 0.4) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 320px;
+            position: relative;
+        }
+
+        .hero-visual-icon {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 1.25rem;
+            opacity: 0.9;
+        }
+
+        /* Apps Section (BuroAdmin & BuroStat) */
+        .apps-section {
+            padding-top: 2.5rem;
+            padding-bottom: 2.5rem;
+        }
+
+        .section-tag {
+            text-align: center;
+            color: var(--accent-teal);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px; 
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .app-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .app-card:hover {
+            background-color: var(--bg-card-hover);
+            border-color: var(--accent-teal);
+            transform: translateY(-3px);
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .app-icon-wrapper {
+            background-color: var(--card-inner-bg);
+            border-radius: 16px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-teal);
+            flex-shrink: 0;
+        }
+
+        .app-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .app-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .btn-app-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: var(--accent-teal);
+            color: var(--bg-main);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.2s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-app-action:hover {
+            background-color: var(--accent-teal-hover);
+            box-shadow: 0 4px 15px rgba(100, 207, 202, 0.3);
+        }
+
+        /* Services Section */
+        .services-section {
+            padding-top: 3rem;
+            padding-bottom: 5rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .service-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .service-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .service-item svg {
+            color: var(--accent-teal);
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .footer-icon {
+            background-color: var(--card-inner-bg);
+            color: var(--accent-teal);
+            padding: 0.75rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .footer-text-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .footer-text-val {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .footer-bottom {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Breakpoints */
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                padding-top: 2.5rem;
+                padding-bottom: 2.5rem;
+            }
+            
+            /* NUEVO: Separar "Gestión Integral..." del título de Plataformas */
+            .hero-visual {
+                margin-bottom: 3rem; 
+            }
+
+            /* NUEVO: Separar la tarjeta de BuroStat de la tarjeta de Topografía */
+            .service-card {
+                margin-top: 2rem; 
+            }
+        }
+
+        @media (max-width: 850px) {
+            .desktop-nav {
+                display: none;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo-area">
+                    <img src="Logo Circular con Contenido Agrandado.png" alt="LandCorp GT Logo" class="logo-icon">
+                    <div class="logo-text">
+                        <span class="brand-name">LandCorp GT</span>
+                        <span class="brand-tagline">SOLUCIONES INMOBILIARIAS</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
+                    <a href="#servicios">Servicios</a>
+                    <a href="#tramites">Trámites</a>
+                    <a href="#planos">Planos y Mediciones</a>
+                    <a href="#avaluos">Avalúos</a>
+                    
+                    <!-- Dropdown de Inicio de Sesión / Aplicaciones -->
+                    <div class="dropdown">
+                        <button class="dropdown-btn">
+                            <span>Ingresar</span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="https://buroadmin.landcorpgt.com" target="_blank" class="dropdown-item">
+                                BuroAdmin
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            </a>
+                            <a href="https://burostat.landcorpgt.com" target="_blank" class="dropdown-item">
+                                BuroStat
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="#contacto" class="btn-nav-contact">Contáctanos</a>
+                </nav>
+
+                <!-- Mobile Hamburger Button -->
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menú">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation Drawer -->
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#servicios">Servicios</a>
+                <a href="#tramites">Trámites</a>
+                <a href="#planos">Planos y Mediciones</a>
+                <a href="#avaluos">Avalúos</a>
+                <div style="color: var(--accent-teal); font-weight: 700; margin-top: 0.5rem;">Ingresar a Plataformas:</div>
+                <div class="mobile-app-links">
+                    <a href="https://buroadmin.landcorpgt.com" target="_blank">BuroAdmin &rarr;</a>
+                    <a href="https://burostat.landcorpgt.com" target="_blank">BuroStat &rarr;</a>
+                </div>
+                <a href="#contacto" class="btn-nav-contact" style="text-align: center; margin-top: 0.5rem;">Contáctanos</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero container">
+        <div class="hero-content">
+            <h1 class="hero-title">¿Deseas simplificar tus gestiones inmobiliarias?</h1>
+            <p class="hero-subtitle">Expertos en soluciones integrales para inmuebles en Guatemala.</p>
+            <p class="hero-description">
+                Desde trámites municipales hasta planos y avalúos, LandCorp GT gestiona y garantiza resultados precisos y confiables para tus propiedades.
+            </p>
+            <div class="hero-buttons">
+                <a href="#servicios" class="btn-primary">Nuestros Servicios</a>
+                <a href="#contacto" class="btn-secondary">Cotizar Proyecto</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <svg class="hero-visual-icon" viewBox="0 0 24 24" fill="none" stroke="#64cfca" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+            <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">Gestión Integral Inmobiliaria</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 280px;">Trámites, Topografía, Avalúos y Planos Topográficos en un solo lugar.</p>
+        </div>
+    </section>
+
+    <!-- Platforms Section (BuroAdmin & BuroStat) -->
+    <section class="apps-section container" id="plataformas">
+        <div class="section-tag">Plataformas Digitales</div>
+        <h2 class="section-title">Acceso a nuestras Aplicaciones</h2>
+        <div class="apps-grid">
+            <!-- BuroAdmin -->
+            <div class="app-card">
+                <div>
+                    <div class="app-header" style="margin-bottom: 1rem;">
+                        <div class="app-icon-wrapper">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <h3 class="app-title">BuroAdmin</h3>
+                    </div>
+                    <p class="app-desc">Gestión de proyectos, documentos administrativos y control de clientes.</p>
+                </div>
+                <a href="https://buroadmin.landcorpgt.com" target="_blank" class="btn-app-action">
+                    Ir a BuroAdmin
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+
+            <!-- BuroStat -->
+            <div class="app-card">
+                <div>
+                    <div class="app-header" style="margin-bottom: 1rem;">
+                        <div class="app-icon-wrapper">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                        </div>
+                        <h3 class="app-title">BuroStat</h3>
+                    </div>
+                    <p class="app-desc">Métricas, análisis de mercado y estadísticas del sector inmobiliario.</p>
+                </div>
+                <a href="https://burostat.landcorpgt.com" target="_blank" class="btn-app-action">
+                    Ir a BuroStat
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section container" id="servicios">
+        <div class="services-grid">
+            <!-- Topografía y Mediciones -->
+            <div class="service-card" id="planos">
+                <div class="service-header">
+                    <div class="app-icon-wrapper">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Topografía y Medición de Planos</h3>
+                </div>
+                <ul class="service-list">
+                    <li class="service-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Medición precisa de fincas y terrenos urbanos o rurales.
+                    </li>
+                    <li class="service-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Elaboración de planos registrados y georreferenciados.
+                    </li>
+                    <li class="service-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Control topográfico de obra, cortes y rellenos.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Avalúos y Trámites -->
+            <div class="service-card" id="avaluos">
+                <div class="service-header">
+                    <div class="app-icon-wrapper">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 21h18M3 7v14M21 7v14M6 21V11M10 21V11M14 21V11M18 21V11M12 3L2 7h20L12 3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title" id="tramites">Avalúos y Gestiones Municipales</h3>
+                </div>
+                <ul class="service-list">
+                    <li class="service-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Avalúos comerciales, fiscales e institucionales.
+                    </li>
+                    <li class="service-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Trámites y permisos de construcción en municipalidades.
+                    </li>
+                    <li class="service-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        Gestión documental ante dependencias gubernamentales.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Teléfono / WhatsApp -->
+                <div class="footer-item">
+                    <div class="footer-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div>
+                        <div class="footer-text-label">WhatsApp / Teléfono</div>
+                        <div class="footer-text-val">+502-4444-4041</div>
+                    </div>
+                </div>
+
+                <!-- Correo -->
+                <div class="footer-item">
+                    <div class="footer-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div>
+                        <div class="footer-text-label">Correo Electrónico</div>
+                        <div class="footer-text-val">info@landcorpgt.com</div>
+                    </div>
+                </div>
+
+                <!-- Horario -->
+                <div class="footer-item">
+                    <div class="footer-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <div>
+                        <div class="footer-text-label">Horario de Atención</div>
+                        <div class="footer-text-val">Lunes a Viernes 8:00am - 5:00pm</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                &copy; 2026 LandCorp GT - Soluciones Inmobiliarias. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script for Mobile Toggle -->
+    <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
